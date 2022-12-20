@@ -19,6 +19,9 @@ public class GameOverManager : MonoBehaviour
         if (playerHealth.CurrentHealth <= 0)
         {
             anim.SetTrigger("GameOver");
+
+            // Resetting the game data, so that default values are loaded in the new game
+            GameDataManager.Instance.ResetGameData();
         }
     }
 }

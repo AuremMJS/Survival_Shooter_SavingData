@@ -30,7 +30,15 @@ public class PlayerHealth : MonoBehaviour
         playerAudio = GetComponent <AudioSource> ();
         playerMovement = GetComponent <PlayerMovement> ();
         playerShooting = GetComponentInChildren <PlayerShooting> ();
-        currentHealth = startingHealth;
+
+        // Getting the health from game data manager
+        currentHealth = GameDataManager.Instance.GetHealth();
+
+        // If the health stored is zero, new game. So loading starting health
+        currentHealth = currentHealth != 0? currentHealth : startingHealth;
+
+        // Setting the slider value based on current health
+        healthSlider.value = currentHealth;
     }
 
 
@@ -54,6 +62,8 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth -= amount;
 
+        // Updating the health in game data manager whenever there is a damage
+        GameDataManager.Instance.SetHealth(currentHealth);
         healthSlider.value = currentHealth;
 
         playerAudio.Play ();

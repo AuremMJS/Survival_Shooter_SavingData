@@ -31,7 +31,9 @@ public class PauseManager : MonoBehaviour {
 	{
 		Time.timeScale = Time.timeScale == 0 ? 1 : 0;
 		Lowpass ();
-		
+
+		// Saving the game data when paused
+		GameDataManager.Instance.SaveData();
 	}
 	
 	void Lowpass()
@@ -56,4 +58,11 @@ public class PauseManager : MonoBehaviour {
 		Application.Quit();
 		#endif
 	}
+
+	// Saving the game data when game is quit
+	public void OnApplicationQuit()
+    {
+		GameDataManager.Instance.SaveData();
+	}
+
 }
